@@ -1,0 +1,23 @@
+{
+  "$schema": "https://clerk.com/schemas/config/v1.json",
+  "version": "1.0",
+
+  "_metadata": {
+    "name": "minimal-config",
+    "instanceId": "ins_default"
+  },
+
+  "authentication": {
+    "signIn": {
+      "attributes": ["email_address"],
+      "strategies": {
+        "password": true,
+        "emailCode": true
+      }
+    }
+  },
+
+  "redirects": {
+    "afterSignInUrl": "/dashboard"
+  }
+}

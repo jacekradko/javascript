@@ -1,0 +1,83 @@
+{
+  "$schema": "https://clerk.com/schemas/config/v1.json",
+  "version": "1.0",
+
+  // Metadata for tracking and validation
+  "_metadata": {
+    "name": "my-app-config",
+    "lastApplied": "2024-01-15T10:30:00Z",
+    "configHash": "sha256:abc123...",
+    "instanceId": "ins_default"
+  },
+
+  // Authentication configuration
+  "authentication": {
+    "signIn": {
+      "attributes": ["email_address", "phone_number"],
+      "strategies": {
+        "password": true,
+        "emailCode": true,
+        "phoneCode": false,
+        "passkey": false
+      }
+    },
+    "signUp": {
+      "mode": "public", // "public" | "restricted"
+      "attributes": {
+        "emailAddress": {
+          "enabled": true,
+          "required": true,
+          "verifyAtSignUp": true
+        },
+        "phoneNumber": {
+          "enabled": false,
+          "required": false
+        }
+      }
+    },
+    "providers": {
+      "google": {
+        "enabled": true
+      },
+      "github": {
+        "enabled": true
+      }
+    }
+  },
+
+  // Redirect URLs
+  "redirects": {
+    "signInUrl": "/sign-in",
+    "signUpUrl": "/sign-up",
+    "afterSignInUrl": "/dashboard",
+    "afterSignUpUrl": "/onboarding",
+    "homeUrl": "/"
+  },
+
+  // Organizations configuration
+  "organizations": {
+    "enabled": true,
+    "maxAllowedMemberships": 3,
+    "roles": [
+      {
+        "name": "Admin",
+        "key": "admin",
+        "permissions": ["members:manage", "settings:manage", "billing:manage"]
+      },
+      {
+        "name": "Member",
+        "key": "member",
+        "permissions": ["members:read"]
+      },
+      {
+        "name": "Developer",
+        "key": "developer",
+        "permissions": ["members:read", "projects:manage", "deployments:manage"]
+      }
+    ],
+    "domains": {
+      "enabled": true,
+      "defaultRole": "member"
+    }
+  }
+}

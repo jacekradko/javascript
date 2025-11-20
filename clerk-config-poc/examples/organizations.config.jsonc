@@ -1,0 +1,88 @@
+{
+  "$schema": "https://clerk.com/schemas/config/v1.json",
+  "version": "1.0",
+
+  "_metadata": {
+    "name": "organizations-example",
+    "instanceId": "ins_default"
+  },
+
+  "authentication": {
+    "signIn": {
+      "attributes": ["email_address"],
+      "strategies": {
+        "password": true,
+        "emailCode": true
+      }
+    },
+    "signUp": {
+      "mode": "public",
+      "attributes": {
+        "emailAddress": {
+          "enabled": true,
+          "required": true,
+          "verifyAtSignUp": true
+        }
+      }
+    },
+    "providers": {
+      "google": {
+        "enabled": true
+      }
+    }
+  },
+
+  "redirects": {
+    "signInUrl": "/sign-in",
+    "afterSignInUrl": "/dashboard",
+    "afterSignUpUrl": "/onboarding"
+  },
+
+  // Organizations with custom roles and domain support
+  "organizations": {
+    "enabled": true,
+    "maxAllowedMemberships": 5,
+    "roles": [
+      {
+        "name": "Owner",
+        "key": "owner",
+        "permissions": [
+          "members:manage",
+          "settings:manage",
+          "billing:manage",
+          "organization:delete"
+        ]
+      },
+      {
+        "name": "Admin",
+        "key": "admin",
+        "permissions": [
+          "members:manage",
+          "settings:manage",
+          "projects:manage"
+        ]
+      },
+      {
+        "name": "Developer",
+        "key": "developer",
+        "permissions": [
+          "members:read",
+          "projects:manage",
+          "deployments:create"
+        ]
+      },
+      {
+        "name": "Viewer",
+        "key": "viewer",
+        "permissions": [
+          "members:read",
+          "projects:read"
+        ]
+      }
+    ],
+    "domains": {
+      "enabled": true,
+      "defaultRole": "viewer"
+    }
+  }
+}
